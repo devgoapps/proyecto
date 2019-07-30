@@ -1,0 +1,47 @@
+<div class="wrapper wrapper-full-page">
+  <div class="full-page login-page" data-color="red" data-image="assets/img/full-screen-image-2.jpg" >
+    <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+    <div class="content">
+      <div class="container">
+        <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+          <form #form="ngForm" (ngSubmit)="form.valid ? login(): ''" novalidate autocomplete="off" class="form" >
+            <div class="card card-login" >
+              <div style="padding-left: 10px;">
+                <a style="color: #c82333;" href="javascript:void(0)" (click)="goBack()"><i class="fas fa-chevron-left"></i> Regresar</a>
+              </div>
+              <div class="card-header ">
+                <h3 class="header text-center"><b>Proyecto</b></h3>
+              </div>
+              <div class="card-body ">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="required" >Email</label>
+                    <input type="text" [(ngModel)]="credentials.email" name="femail" #femail="ngModel" [pattern]="emailPattern" required placeholder="Introduce tu email" class="form-control">
+                    
+                    <div *ngIf="form.submitted && femail.errors">
+                      <small [hidden]="!femail.errors.required" class="form-text validation">El email es requerido.</small>
+                      <small [hidden]="!femail.errors.pattern" class="form-text validation">El formato del email no es valido.</small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="required" >Contraseña</label>
+                    <input type="password" [(ngModel)]="credentials.password" name="fpassword" #fpassword="ngModel" required placeholder="Introduce tu contraseña" class="form-control">
+                    
+                    <div *ngIf="form.submitted && fpassword.errors">
+                      <small [hidden]="!fpassword.errors.required" class="form-text validation">La contraseña es requerida.</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-footer ml-auto mr-auto">
+                <button type="submit" class="btn btn-danger btn-wd">Iniciar sesión</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="full-page-background" style="background-image: url(./assets/img/bg4.jpg) "></div>
+  </div>
+</div>

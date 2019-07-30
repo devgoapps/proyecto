@@ -1,0 +1,164 @@
+<div >
+  <div >
+    <div >
+      <div class="card table-with-switches">
+        <div class="card-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">Administración / Productos</h3>
+            <button class="btn btn-danger btn-wd" (click)="newProduct()"><i class="fa fa-plus"></i> Crear Producto</button>
+          </div>
+        </div>
+        <hr>
+
+        <div class="card-body table-responsive">
+          <div style="padding-left: 15px;">
+            <span style="color: #797979; font-weight: 300;">Productos encontrados <b>({{ products ? products.length: 0 }})</b>.</span>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th>Imagen</th>
+                <th>Clave</th>
+                <th>Descripción</th>
+                <th>Stock</th>
+                <th>Precio</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products; let i = index;" >
+                <td class="text-center">{{ (i + 1) }}</td>
+                <td >
+                  <img [src]="product.image" draggable="false" style="width: 80px; height: 80px;"/>
+                </td>
+                <td (click)="getProductById(i)" class="name">{{ product.key }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.stock | number }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div style="margin: 30px 0px;">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" role="dialog" id="productForm">
+    <div class="modal-dialog modal-md" >
+      <div class="modal-content">
+        
+        <div class="modal-header" style="padding: 0px;" >
+          <div class="title-content" style="margin-bottom: 0px;">
+            <span class="icon"><i class="fa fa-user-plus"></i></span>
+            <span style="font-size: 20px;">{{ method == 'create' ? 'Nuevo producto': 'Actualizar producto' }}</span>
+          </div>
+        </div>
+        
+        <div class="modal-body" style="padding: 20px;">
+          <div class="card" style="border: none; margin-bottom: 0px;">
+            <form #form="ngForm" (ngSubmit)="form.valid && product.image ? method == 'create' ? createProduct(): updateProduct(): null" novalidate autocomplete="off" >
+              
+              <div class="row" >
+                <div class="col-sm-12 col-md-12" style="display: flex; justify-content: center;">
+                  <img [src]="product.image" *ngIf="product.image" draggable="false" style="width: 60%; height: 200px;"/>
+                  <img [src]="product.default" *ngIf="!product.image" draggable="false" style="width: 60%; height: 200px;"/>
+                </div>
+              </div>
+
+              <div class="row" >
+                <div class="col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label class="required" >Clave</label>
+                    <input type="number" [(ngModel)]="product.key" #fkey="ngModel" name="fkey" required class="form-control" placeholder="Ejem. 19373"  >
+    
+                    <div *ngIf="form.submitted && fkey.errors">
+                      <small [hidden]="!fkey.errors.required" class="form-text validation" >
+                        La clave es requerida.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label class="required" >Descripción</label>
+                    <input type="text" [(ngModel)]="product.description" #fdescription="ngModel" name="fdescription" [pattern]="textPattern" required class="form-control" placeholder="Ejem. Lampara de noche"  >
+    
+                    <div *ngIf="form.submitted && fdescription.errors">
+                      <small [hidden]="!fdescription.errors.required" class="form-text validation" >
+                        La descripción es requerida.
+                      </small>
+                      <small [hidden]="!fdescription.errors.pattern" class="form-text validation" >
+                        La descripción solo permite letras, numeros y espacios
+                      </small>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+
+              <div class="row" >
+                <div class="col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label class="required" >Stock</label>
+                    <input type="number" [(ngModel)]="product.stock" #fstock="ngModel" name="fstock" required class="form-control" placeholder="Ejem. 23"  >
+    
+                    <div *ngIf="form.submitted && fstock.errors">
+                      <small [hidden]="!fstock.errors.required" class="form-text validation" >
+                        El stock es requerido.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <label class="required" >Precio</label>
+                    <input type="number" [(ngModel)]="product.price" #fprice="ngModel" name="fprice" required class="form-control" placeholder="Ejem. 250"  >
+    
+                    <div *ngIf="form.submitted && fprice.errors">
+                      <small [hidden]="!fprice.errors.required" class="form-text validation" >
+                        El precio es requerido.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row" >
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <label class="required" >Imagen</label>
+                    <input type="file" name="fimage" (change)="uploadMedia($event)" accept="image/jpeg" required class="form-control"  >
+    
+                    <div *ngIf="form.submitted">
+                      <small [hidden]="product.image" class="form-text validation" >
+                        La imagen es requerida.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="text-right" style="padding-top: 25px; margin-top: 30px; border-top: 1px dashed #ddd;">
+                <button type="button" class="btn btn-outline btn-wd" style="margin-right: 15px;" data-dismiss="modal" ><i class="fa fa-times"></i> Cancelar</button>
+                <button type="submit" class="btn btn-danger btn-wd" ><i class="fa fa-check"></i> Guardar</button>
+              </div>
+    
+            </form>
+          </div>
+        
+        </div>
+        
+      </div>
+    </div>
+  </div>

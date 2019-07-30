@@ -1,0 +1,17 @@
+<div class="main" >
+  
+  <div class="wrapper">
+    <app-sidebar *ngIf="!loginFlag" [name]="name" [profile]="profile" [loggedIn]="loggedIn" ></app-sidebar>
+    
+    <div [ngClass]="{ 'main-panel': !loginFlag, 'main-panel-logout': loginFlag }" >
+      <app-navbar *ngIf="!loginFlag" [name]="name" [profile]="profile" [loggedIn]="loggedIn" ></app-navbar>
+
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+      
+      <app-footer *ngIf="!loginFlag" ></app-footer>
+    </div>
+  </div>
+</div>
+

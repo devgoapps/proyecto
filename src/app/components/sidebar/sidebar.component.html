@@ -1,0 +1,45 @@
+<div class="sidebar" data-color="red" >
+  <div class="sidebar-wrapper">
+    <div class="logo">
+      <a href="javascript:void(0)" class="simple-text logo-mini">
+        OK
+      </a>
+      <a href="javascript:void(0)" class="simple-text logo-normal">
+        Proyecto
+      </a>
+    </div>
+    <div class="user" style="padding-bottom: 0px;" *ngIf="loggedIn">
+      <div class="info" >
+        <h4 style="margin-left: 25px;">{{ name }}</h4>
+        <p style="margin-left: 25px;">{{ profiles[(profile - 1)]?.name }}</p>
+      </div>
+    </div>
+    <ul class="nav">
+      <li class="nav-item" *ngFor="let route of routes; let i = index;">
+        <a class="nav-link" data-toggle="collapse" href="#childrenRoutes_{{ i }}" *ngIf="route.loggedIn == loggedIn">
+          <div (click)="goToModule(route.route)" >
+            <i class="{{ route.icon }}"></i>
+            <p>
+              {{ route.name }}
+              <b class="caret" *ngIf="route.children && route.children.length > 0"></b>
+            </p>
+          </div>
+        </a>
+        <div class="collapse" id="childrenRoutes_{{ i }}" >
+          <ul class="nav" >
+            <li class="nav-item" *ngFor="let child of route.children" >
+              <a class="nav-link" >
+                <div (click)="goToModule(child.route)" >
+                  <span class="sidebar-mini">
+                    {{ child.icon }}
+                  </span>
+                  <span class="sidebar-normal">{{ child.name }}</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

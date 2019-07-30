@@ -1,0 +1,158 @@
+<div >
+  <div >
+    <div >
+      <div class="card table-with-switches">
+        <div class="card-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">Administración / Empleados</h3>
+            <button class="btn btn-danger btn-wd" (click)="newUser()"><i class="fa fa-plus"></i> Crear Empleado</button>
+          </div>
+        </div>
+        <hr>
+
+        <div class="card-body table-responsive">
+          <div style="padding-left: 15px;">
+            <span style="color: #797979; font-weight: 300;">Empleados encontrados <b>({{ users ? users.length: 0 }})</b>.</span>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th>Nombre del empleado</th>
+                <th>Email</th>
+                <th>Puesto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users; let i = index;" >
+                <td class="text-center">{{ (i + 1) }}</td>
+                <td (click)="getUserById(i)" class="name">{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ profiles[user.profile - 1].name }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div style="margin: 30px 0px;">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" role="dialog" id="userForm">
+    <div class="modal-dialog modal-md" >
+      <div class="modal-content">
+        
+        <div class="modal-header" style="padding: 0px;" >
+          <div class="title-content" style="margin-bottom: 0px;">
+            <span class="icon"><i class="fa fa-user-plus"></i></span>
+            <span style="font-size: 20px;">{{ method == 'create' ? 'Nuevo empleado': 'Actualizar empleado' }}</span>
+          </div>
+        </div>
+        
+        <div class="modal-body" style="padding: 20px;">
+          <div class="card" style="border: none; margin-bottom: 0px;">
+            <form #form="ngForm" (ngSubmit)="form.valid ? method == 'create' ? createUser(): updateUser(): null" novalidate autocomplete="off" >
+    
+              <div class="row" >
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <label class="required" >Nombre completo</label>
+                    <input type="text" [(ngModel)]="user.name" #fname="ngModel" name="fname" [pattern]="textPattern" required class="form-control" placeholder="Ejem. Mariana Itzel"  >
+    
+                    <div *ngIf="form.submitted && fname.errors">
+                      <small [hidden]="!fname.errors.required" class="form-text validation" >
+                        El nombre es requerido.
+                      </small>
+                      <small [hidden]="!fname.errors.pattern" class="form-text validation" >
+                        El nombre solo permite letras y espacios.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" >
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <label class="required" >Perfil</label>
+                    <ng-select
+                      [items]="profiles"
+                      [multiple]="false"
+                      [closeOnSelect]="true"
+                      bindLabel="name"
+                      bindValue="id"
+                      #fprofile="ngModel" 
+                      name="fprofile" 
+                      required
+                      placeholder="Selecciona un perfil"
+                      notFoundText="No se encontraron perfiles."
+                      [(ngModel)]="user.profile" >
+                    </ng-select>
+                    
+                    <div *ngIf="form.submitted && fprofile.errors">
+                      <small [hidden]="!fprofile.errors.required" class="form-text validation" >
+                        El perfil es requerido.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" >
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <label class="required" >Email</label>
+                    <input type="text" [(ngModel)]="user.email" #femail="ngModel" name="femail" [pattern]="emailPattern" required class="form-control" placeholder="Ejem. alguien@gmail.com"  >
+    
+                    <div *ngIf="form.submitted && femail.errors">
+                      <small [hidden]="!femail.errors.required" class="form-text validation" >
+                        El email es requerido.
+                      </small>
+                      <small [hidden]="!femail.errors.pattern" class="form-text validation" >
+                        El formato del email no es valido.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" >
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <label class="required" >Contraseña</label>
+                  
+                    <div class="input-group" >
+                      <input [type]="inputType" [(ngModel)]="user.password" #fpassword="ngModel" name="fpassword" required [disabled]="inputLock" class="form-control" placeholder="**********" >
+                      <div class="input-group-append">
+                        <button class="btn btn-outline" (click)="inputType = 'text'" *ngIf="!inputLock && inputType == 'password'" type="button" style="margin-bottom: 0px;"><i class="far fa-eye"></i></button>
+                        <button class="btn btn-outline" (click)="inputType = 'password'" *ngIf="!inputLock && inputType == 'text'" type="button" style="margin-bottom: 0px;"><i class="far fa-eye-slash"></i></button>
+                      </div>
+                    </div>
+
+                    <div *ngIf="form.submitted && fpassword.errors">
+                      <small [hidden]="!fpassword.errors.required" class="form-text validation" >
+                        La contraseña es requerida.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="text-right" style="padding-top: 25px; margin-top: 30px; border-top: 1px dashed #ddd;">
+                <button type="button" class="btn btn-outline btn-wd" style="margin-right: 15px;" data-dismiss="modal" ><i class="fa fa-times"></i> Cancelar</button>
+                <button type="submit" class="btn btn-danger btn-wd" ><i class="fa fa-check"></i> Guardar</button>
+              </div>
+    
+            </form>
+          </div>
+        
+        </div>
+        
+      </div>
+    </div>
+  </div>

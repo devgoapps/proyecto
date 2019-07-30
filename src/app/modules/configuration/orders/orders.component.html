@@ -1,0 +1,73 @@
+<div >
+  <div >
+    <div >
+      <div class="card table-with-switches">
+        <div class="card-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">Administración / Pedidos</h3>
+          </div>
+        </div>
+        <hr>
+
+        <div class="card-body table-responsive">
+          <div style="padding-left: 15px;">
+            <span style="color: #797979; font-weight: 300;">Pedidos encontrados <b>({{ items ? items.length: 0 }})</b>.</span>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3 col-sm-3">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-center"># Orden de compra</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let order of orders; let i = index;" >
+                    <td class="name text-center" (click)="getDetail(i)" >Orden de compra <b>{{ (i + 1) }}</b></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-9 col-sm-9">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th>Imagen</th>
+                    <th>Clave</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th >Cantidad</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of detail; let i = index;" >
+                    <td class="text-center">{{ (i + 1) }}</td>
+                    <td >
+                      <img [src]="item.image" draggable="false" style="width: 80px; height: 80px;"/>
+                    </td>
+                    <td class="name">{{ item.key }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.price | currency }}</td>
+                    <td  >{{ item.pieces }}</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+        
+            </div>
+          </div>
+
+          
+        </div>
+        <div style="margin: 30px 0px;">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

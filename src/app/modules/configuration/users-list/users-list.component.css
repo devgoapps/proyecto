@@ -1,0 +1,30 @@
+.title-content {
+    width: 100%;
+    padding: 15px;
+    padding: 20px;
+    border-bottom: 1px dashed #ddd;
+    display: flex;
+    align-items: center;
+}
+
+
+.title-content .icon {
+    background: #FB404B;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+
+
+.name {
+    cursor: pointer;
+}
+
+.name:hover {
+    color: #FB404B;
+}

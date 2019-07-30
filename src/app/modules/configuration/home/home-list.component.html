@@ -1,0 +1,52 @@
+<div >
+  <div >
+    <div >
+      <div class="card table-with-switches">
+        <div class="card-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">Listado de productos</h3>
+          </div>
+        </div>
+        <hr>
+
+        <div class="card-body table-responsive">
+          <div style="padding-left: 15px;">
+            <span style="color: #797979; font-weight: 300;">Productos encontrados <b>({{ products ? products.length: 0 }})</b>.</span>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th>Imagen</th>
+                <th>Clave</th>
+                <th>Descripción</th>
+                <th>Stock</th>
+                <th>Precio</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products; let i = index;" >
+                <td class="text-center">{{ (i + 1) }}</td>
+                <td >
+                  <img [src]="product.image" draggable="false" style="width: 80px; height: 80px;"/>
+                </td>
+                <td class="name">{{ product.key }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.stock | number }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td class="text-center" style="padding: 12px 8px; display: table-cell; vertical-align: middle;">
+                  <button class="btn btn-danger btn-wd" (click)="addProduct(i)"><small><i class="fa fa-plus"></i> Agregar a mi carrito</small></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div style="margin: 30px 0px;">
+      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
