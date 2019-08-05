@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SessionService } from '../../services/session.service';
+import { SweetAlertService } from '../../services/sweet-alert.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-navbar',
@@ -25,11 +28,38 @@ export class NavbarComponent implements OnInit {
     }
   ];
 
+  public comment: any = {};
+
+  public textPattern: any = /^[a-zA-Z\sÑñ]+$/i;
+  public codePattern: any = /^[A-Z]+$/i;
+
   constructor(private router: Router,
+              private swa: SweetAlertService,
               private sessionService: SessionService) { }
 
   ngOnInit() { 
 
+  }
+
+  showCommentForm(){
+    $('form')[0].reset();
+    $('#commentForm').modal('show');
+  }
+
+  createComment(){
+    let comments: any = localStorage.getItem('comments');
+    if(comments){
+      comments = JSON.parse(comments);
+    }else{
+      comments = [];
+    }
+
+    comments.push(this.comment);
+    localStorage.setItem('comments', JSON.stringify(comments));
+
+    this.swa.success('Comentario creada', '', () => { 
+      $('#commentForm').modal('hide');
+    });
   }
 
   goLogin(){

@@ -28,3 +28,9 @@
 .name:hover {
     color: #FB404B;
 }
+
+
+.winner {
+    background: #FB404B !important;
+    color: #fff;
+}

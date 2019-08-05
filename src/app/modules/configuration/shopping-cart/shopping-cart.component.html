@@ -37,7 +37,7 @@
                 <td class="text-center" >
                   <button (click)="removePiece(i)" style="border-radius: 50%; width: 40px; height: 40px; background: #dc3545; color: #fff;"><small><i class="fa fa-minus"></i></small></button> 
                   <span style="margin: 0px 10px; font-size: 20px; font-weight: bold;">{{ item.pieces }}</span> 
-                  <button (click)="addPiece(i)" style="border-radius: 50%; width: 40px; height: 40px; background: #dc3545; color: #fff;"><small><i class="fa fa-plus"></i></small></button>
+                  <button id="add" (click)="addPiece(i)" [disabled]="item.stock == item.pieces" style="border-radius: 50%; width: 40px; height: 40px; background: #dc3545; color: #fff;"><small><i class="fa fa-plus"></i></small></button>
                 </td>
                 <td class="text-center" style="padding: 12px 8px; display: table-cell; vertical-align: middle;">
                   <button class="btn btn-danger btn-wd" (click)="removeProduct(i)"><small><i class="fa fa-times"></i> Eliminar de mi carrito</small></button>

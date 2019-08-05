@@ -101,6 +101,23 @@ export class ShoppingCartListComponent implements OnInit {
     orders.push(order);
     localStorage.setItem('orders', JSON.stringify(orders));
 
+    let products: any = localStorage.getItem('products');
+    if(products){
+      products = JSON.parse(products);
+    }else{
+      products = [];
+    }
+
+    for(let i = 0; i < order.length; i++){
+      for(let j = 0; j < products.length; j++){
+        if(order[i].key == products[j].key){
+          products[j].stock = (products[j].stock - order[i].pieces);
+        }
+      }
+    }
+
+    localStorage.setItem('products', JSON.stringify(products));
+
     this.swa.success('Orden creada', '', () => {
       localStorage.removeItem('shoppingCart');
       this.items = [];

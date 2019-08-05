@@ -28,3 +28,8 @@
 .name:hover {
     color: #FB404B;
 }
+
+
+#add:disabled {
+    opacity: 0.5;
+}

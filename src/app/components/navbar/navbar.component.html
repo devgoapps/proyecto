@@ -18,11 +18,16 @@
   
       <ul class="navbar-nav">
         <li class="nav-item" *ngIf="!loggedIn">
+          <button class="btn btn-danger btn-wd" (click)="showCommentForm()"><i class="fa fa-comment"></i> Comentario</button>
+        </li>
+
+        <li class="nav-item" *ngIf="!loggedIn">
           <button class="btn btn-danger btn-wd" (click)="goLogin()"><i class="fa fa-power-off"></i> Iniciar sesión</button>
           <!--a (click)="goLogin()" href="javascript:void(0);" class="dropdown-item">
             <i class="fa fa-power-off"></i> Iniciar sesión
           </a-->
         </li>
+
         <li class="nav-item dropdown" *ngIf="loggedIn" >
           <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="line-height: 20px;">
             <div style="display: flex; align-items: center; font-size: 15px;">
@@ -43,3 +48,89 @@
     </div>
   </div>
 </nav>
+
+
+<div class="modal fade" role="dialog" id="commentForm">
+  <div class="modal-dialog modal-md" >
+    <div class="modal-content">
+      
+      <div class="modal-header" style="padding: 0px;" >
+        <div class="title-content" style="margin-bottom: 0px;">
+          <span class="icon"><i class="fas fa-comment-medical"></i></span>
+          <span style="font-size: 20px;">Nuevo comentario</span>
+        </div>
+      </div>
+      
+      <div class="modal-body" style="padding: 20px;">
+        <div class="card" style="border: none; margin-bottom: 0px;">
+          <form #form="ngForm" (ngSubmit)="form.valid ? createComment(): null" novalidate autocomplete="off" >
+  
+            <div class="row" >
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group">
+                  <label class="required" >Nombre completo</label>
+                  <input type="text" [(ngModel)]="comment.name" #fname="ngModel" name="fname" [pattern]="textPattern" required class="form-control" placeholder="Ejem. Mariana Itzel"  >
+  
+                  <div *ngIf="form.submitted && fname.errors">
+                    <small [hidden]="!fname.errors.required" class="form-text validation" >
+                      El nombre es requerido.
+                    </small>
+                    <small [hidden]="!fname.errors.pattern" class="form-text validation" >
+                      El nombre solo permite letras y espacios.
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" >
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group">
+                  <label class="required" >Comentario</label>
+                  
+                  <textarea [(ngModel)]="comment.comment" #fcomment="ngModel" name="fcomment"  rows="5" [pattern]="textPattern" required class="form-control" placeholder="Ejem. Me gustaron muchos sus productos..."></textarea>
+                  
+                  <div *ngIf="form.submitted && fcomment.errors">
+                    <small [hidden]="!fcomment.errors.required" class="form-text validation" >
+                      El comentario es requerido.
+                    </small>
+                    <small [hidden]="!fcomment.errors.pattern" class="form-text validation" >
+                      El comentario solo permite letras y espacios.
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" >
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group">
+                  <label  class="required">Código para sorteo</label>
+                  <input type="text" [(ngModel)]="comment.code" #fcode="ngModel" name="fcode" required [pattern]="codePattern" class="form-control" placeholder="Ejem. AUECYX"  >
+  
+                  <div *ngIf="form.submitted && fcode.errors">
+                    <small [hidden]="!fcode.errors.required" class="form-text validation" >
+                      El código es requerido.
+                    </small>
+                    <small [hidden]="!fcode.errors.pattern" class="form-text validation" >
+                      El código solo permite letras.
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+  
+            <div class="text-right" style="padding-top: 25px; margin-top: 30px; border-top: 1px dashed #ddd;">
+              <button type="button" class="btn btn-outline btn-wd" style="margin-right: 15px;" data-dismiss="modal" ><i class="fa fa-times"></i> Cancelar</button>
+              <button type="submit" class="btn btn-danger btn-wd" ><i class="fa fa-check"></i> Guardar</button>
+            </div>
+  
+          </form>
+        </div>
+      
+      </div>
+      
+    </div>
+  </div>
+</div>

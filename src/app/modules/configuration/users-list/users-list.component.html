@@ -21,6 +21,7 @@
                 <th>Nombre del empleado</th>
                 <th>Email</th>
                 <th>Puesto</th>
+                <th class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -29,6 +30,9 @@
                 <td (click)="getUserById(i)" class="name">{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ profiles[user.profile - 1].name }}</td>
+                <td class="text-center" style="padding: 12px 8px; display: table-cell; vertical-align: middle;">
+                  <button class="btn btn-danger btn-wd" (click)="removeUser(i)"><small><i class="fa fa-times"></i> Eliminar usuario</small></button>
+                </td>
               </tr>
             </tbody>
           </table>

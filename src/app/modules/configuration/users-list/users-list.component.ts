@@ -100,4 +100,17 @@ export class UsersListComponent implements OnInit {
     }
   }
 
+  removeUser(index){
+    this.swa.confirm('¿Deseas eliminar este usuario?', '', (result) => {
+      if(result.value){
+        this.users.splice(index, 1);
+        localStorage.setItem('users', JSON.stringify(this.users));
+
+        this.swa.success('Usuario eliminado', '', () => {
+          this.getUsers();
+        });
+      }
+    });
+  }
+
 }

@@ -89,6 +89,19 @@ export class ProductsListComponent implements OnInit {
     }
   }
 
+  removeProduct(index){
+    this.swa.confirm('¿Deseas eliminar este producto?', '', (result) => {
+      if(result.value){
+        this.products.splice(index, 1);
+        localStorage.setItem('products', JSON.stringify(this.products));
+
+        this.swa.success('Producto eliminado', '', () => {
+          this.getProducts();
+        });
+      }
+    });
+  }
+
   uploadMedia(event){
     let target = event.target || event.srcElement;
     if (target.files && target.files[0]) {

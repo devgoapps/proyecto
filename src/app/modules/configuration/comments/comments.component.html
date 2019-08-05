@@ -1,0 +1,51 @@
+<div >
+  <div >
+    <div >
+      <div class="card table-with-switches">
+        <div class="card-header">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">Listado de comentarios</h3>
+          </div>
+        </div>
+        <hr>
+
+
+        <div class="text-center">
+          <h1 style="color: #FB404B;">{{ flip }} - {{ numberOfFlips }}</h1>
+        </div>
+        <div class="card-body table-responsive">
+          <div style="padding-left: 15px;">
+            <span style="color: #797979; font-weight: 300;">Comentarios encontrados <b>({{ comments ? comments.length: 0 }})</b>.</span>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th>Nombre del cliente</th>
+                <th>Comentario</th>
+                <th>Código</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let comment of comments; let i = index;" [ngClass]="{ 'winner': codeIndex == i }">
+                <td class="text-center">{{ (i + 1) }}</td>
+                <td class="name">{{ comment.name }}</td>
+                <td>{{ comment.comment }}</td>
+                <td>{{ comment.code }}</td>
+                <td ></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div style="display: flex; justify-content: space-around; margin: 30px 0px;">
+
+            <button class="btn btn-danger btn-wd" [disabled]="numberOfFlips == 0" (click)="numberOfFlips = 0; flip = 0;"><i class="fas fa-spinner"></i> Reiniciar sorteo</button>
+          <button class="btn btn-danger btn-wd" [disabled]="numberOfFlips != 0" (click)="generateRandom()"><i class="fas fa-spinner"></i> Iniciar sorteo</button>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

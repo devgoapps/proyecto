@@ -36,6 +36,13 @@ export class SidebarComponent implements OnInit {
       loggedIn: true
     },
     {
+      name: 'COMENARIOS',
+      icon: 'fas fa-comments',
+      route: ['configuration', 'comments'],
+      children: [ ],
+      loggedIn: true
+    },
+    {
       name: 'LISTADO DE PRODUCTOS',
       icon: 'fa fa-boxes',
       route: ['configuration', 'home-list'],

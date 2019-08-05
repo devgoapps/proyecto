@@ -12,6 +12,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { HomeListComponent } from './home/home-list.component';
 import { ShoppingCartListComponent } from './shopping-cart/shopping-cart.component';
 import { OrdersComponent } from './orders/orders.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { OrdersComponent } from './orders/orders.component';
     ProductsListComponent,
     HomeListComponent,
     ShoppingCartListComponent,
-    OrdersComponent
+    OrdersComponent,
+    CommentsComponent
   ],
   imports: [
     CommonModule,

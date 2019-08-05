@@ -20,7 +20,6 @@
                 <th>Imagen</th>
                 <th>Clave</th>
                 <th>Descripción</th>
-                <th>Stock</th>
                 <th>Precio</th>
                 <th class="text-center">Acciones</th>
               </tr>
@@ -33,7 +32,6 @@
                 </td>
                 <td class="name">{{ product.key }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.stock | number }}</td>
                 <td>{{ product.price | currency }}</td>
                 <td class="text-center" style="padding: 12px 8px; display: table-cell; vertical-align: middle;">
                   <button class="btn btn-danger btn-wd" (click)="addProduct(i)"><small><i class="fa fa-plus"></i> Agregar a mi carrito</small></button>

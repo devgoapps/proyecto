@@ -23,7 +23,7 @@
                 <th>Descripción</th>
                 <th>Stock</th>
                 <th>Precio</th>
-                <th></th>
+                <th class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -36,7 +36,9 @@
                 <td>{{ product.description }}</td>
                 <td>{{ product.stock | number }}</td>
                 <td>{{ product.price | currency }}</td>
-                <td></td>
+                <td class="text-center" style="padding: 12px 8px; display: table-cell; vertical-align: middle;">
+                  <button class="btn btn-danger btn-wd" (click)="removeProduct(i)"><small><i class="fa fa-times"></i> Eliminar producto</small></button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -102,7 +104,7 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
 
               <div class="row" >
